@@ -1,0 +1,328 @@
+# =========================================================
+# ECG HIL PROJECT REPORT GENERATOR
+# Generates a professional DOCX technical report
+# =========================================================
+
+# Install once if needed:
+# pip install python-docx
+
+from docx import Document
+from docx.shared import Inches
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from datetime import datetime
+
+# ---------------------------------------------------------
+# CREATE DOCUMENT
+# ---------------------------------------------------------
+
+doc = Document()
+
+# ---------------------------------------------------------
+# TITLE PAGE
+# ---------------------------------------------------------
+
+title = doc.add_heading(
+    'Biomedical ECG Signal Analysis using Python and Arduino',
+    level=0
+)
+
+title.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+subtitle = doc.add_paragraph()
+subtitle.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+subtitle.add_run(
+    "\nTechnical Progress Report\n"
+).bold = True
+
+subtitle.add_run(
+    f"\nGenerated on: {datetime.now().strftime('%d %B %Y')}"
+)
+
+doc.add_page_break()
+
+# ---------------------------------------------------------
+# INTRODUCTION
+# ---------------------------------------------------------
+
+doc.add_heading('1. Introduction', level=1)
+
+intro = """
+This project focuses on the development of a real-time
+Biomedical ECG Signal Analysis system using Python and Arduino.
+The objective is to acquire ECG-related signals, process them
+using Digital Signal Processing (DSP) techniques, and prepare
+a Hardware-in-the-Loop (HIL) architecture for real-time
+cardiac monitoring applications.
+
+The project integrates concepts from:
+- Signals and Systems
+- Biomedical Signal Processing
+- Embedded Systems
+- Real-Time Data Acquisition
+- Hardware-in-the-Loop (HIL) Systems
+
+The final system architecture is designed to support:
+- ECG signal acquisition
+- Real-time filtering
+- QRS complex detection
+- Heart rate estimation
+- Arrhythmia classification
+- Live graphical visualization
+"""
+
+doc.add_paragraph(intro)
+
+# ---------------------------------------------------------
+# PROJECT OBJECTIVES
+# ---------------------------------------------------------
+
+doc.add_heading('2. Project Objectives', level=1)
+
+objectives = [
+    "Acquire ECG signals using hardware and software systems",
+    "Implement digital filtering techniques",
+    "Detect QRS complexes in real time",
+    "Calculate heart rate from ECG signals",
+    "Prepare a Hardware-in-the-Loop (HIL) system architecture",
+    "Develop a real-time biomedical monitoring dashboard",
+    "Integrate Arduino communication with Python"
+]
+
+for obj in objectives:
+    doc.add_paragraph(obj, style='List Bullet')
+
+# ---------------------------------------------------------
+# SOFTWARE DEVELOPMENT PHASE
+# ---------------------------------------------------------
+
+doc.add_heading('3. Software Development Phase', level=1)
+
+software_text = """
+The software development phase was completed prior to
+hardware integration in order to stabilize the Digital
+Signal Processing pipeline.
+
+The ECG processing system was initially developed using
+offline ECG datasets. The MIT-BIH Arrhythmia Database
+was used as the primary ECG signal source.
+
+The following stages were implemented:
+"""
+
+doc.add_paragraph(software_text)
+
+software_steps = [
+    "ECG dataset acquisition",
+    "Signal visualization",
+    "Bandpass filtering (0.5 Hz – 40 Hz)",
+    "QRS peak detection",
+    "Heart rate calculation",
+    "Arrhythmia classification",
+    "Real-time ECG simulation",
+    "Real-time GUI dashboard creation"
+]
+
+for step in software_steps:
+    doc.add_paragraph(step, style='List Number')
+
+# ---------------------------------------------------------
+# FILTERING SECTION
+# ---------------------------------------------------------
+
+doc.add_heading('4. Digital Signal Processing', level=1)
+
+dsp_text = """
+Digital Signal Processing (DSP) techniques were implemented
+to remove noise and improve ECG signal quality.
+
+A Butterworth bandpass filter was designed with:
+- Lower cutoff frequency: 0.5 Hz
+- Upper cutoff frequency: 40 Hz
+
+The filtering stage removes:
+- Baseline wander
+- High-frequency noise
+- Motion artifacts
+
+The filtering was implemented using the scipy.signal library.
+"""
+
+doc.add_paragraph(dsp_text)
+
+# ---------------------------------------------------------
+# QRS DETECTION
+# ---------------------------------------------------------
+
+doc.add_heading('5. QRS Detection and Heart Rate Estimation', level=1)
+
+qrs_text = """
+QRS complexes were detected using peak detection algorithms.
+
+The scipy.signal.find_peaks() function was used to identify
+R-peaks from the filtered ECG waveform.
+
+Heart rate was calculated using RR intervals according to:
+
+HR = 60 / RR_interval
+
+where RR_interval represents the average time between
+consecutive R-peaks.
+"""
+
+doc.add_paragraph(qrs_text)
+
+# ---------------------------------------------------------
+# REAL-TIME GUI
+# ---------------------------------------------------------
+
+doc.add_heading('6. Real-Time ECG Dashboard', level=1)
+
+gui_text = """
+A real-time ECG dashboard was developed using PyQtGraph.
+
+The dashboard supports:
+- Live ECG waveform visualization
+- Real-time QRS detection
+- Live BPM display
+- Arrhythmia condition display
+- Real-time updating architecture
+
+A moving average technique was implemented to smooth
+heart rate fluctuations and improve stability.
+"""
+
+doc.add_paragraph(gui_text)
+
+# ---------------------------------------------------------
+# HIL ARCHITECTURE
+# ---------------------------------------------------------
+
+doc.add_heading('7. Hardware-in-the-Loop (HIL) Preparation', level=1)
+
+hil_text = """
+The project architecture was designed as a Hardware-in-the-Loop
+(HIL) biomedical monitoring system.
+
+The software system was structured to support both:
+1. Offline ECG dataset processing
+2. Real-time Arduino serial acquisition
+
+The architecture separates:
+- Data acquisition
+- DSP processing
+- Detection
+- Visualization
+
+This modular design simplifies future hardware integration.
+"""
+
+doc.add_paragraph(hil_text)
+
+# ---------------------------------------------------------
+# ARDUINO COMMUNICATION
+# ---------------------------------------------------------
+
+doc.add_heading('8. Arduino-Python Communication', level=1)
+
+arduino_text = """
+Before integrating the ECG sensor module, serial communication
+between Arduino and Python was established and verified.
+
+The Arduino Uno was programmed to transmit serial data through
+USB communication using a baud rate of 115200.
+
+Python communication was implemented using the PySerial library.
+
+The following stages were completed:
+"""
+
+doc.add_paragraph(arduino_text)
+
+arduino_steps = [
+    "Arduino serial transmission setup",
+    "COM port identification",
+    "Python serial communication",
+    "Real-time data reception in Python",
+    "Continuous streaming verification",
+    "Analog input streaming preparation"
+]
+
+for step in arduino_steps:
+    doc.add_paragraph(step, style='List Bullet')
+
+# ---------------------------------------------------------
+# CURRENT STATUS
+# ---------------------------------------------------------
+
+doc.add_heading('9. Current Project Status', level=1)
+
+status = [
+    "Python ECG processing pipeline completed",
+    "Real-time ECG dashboard completed",
+    "QRS detection operational",
+    "Heart rate estimation operational",
+    "Arrhythmia classification operational",
+    "Arduino-Python communication verified",
+    "Real-time serial architecture prepared",
+    "Ready for AD8232 ECG sensor integration"
+]
+
+for item in status:
+    doc.add_paragraph(item, style='List Bullet')
+
+# ---------------------------------------------------------
+# FUTURE WORK
+# ---------------------------------------------------------
+
+doc.add_heading('10. Future Work', level=1)
+
+future = [
+    "Integrate AD8232 ECG sensor module",
+    "Acquire real human ECG signals",
+    "Implement live ECG visualization",
+    "Optimize real-time filtering",
+    "Improve arrhythmia detection accuracy",
+    "Add ECG data recording system",
+    "Implement wireless monitoring",
+    "Develop embedded display system"
+]
+
+for item in future:
+    doc.add_paragraph(item, style='List Bullet')
+
+# ---------------------------------------------------------
+# CONCLUSION
+# ---------------------------------------------------------
+
+doc.add_heading('11. Conclusion', level=1)
+
+conclusion = """
+A real-time biomedical ECG signal analysis system was
+successfully developed using Python and Arduino-based
+communication architecture.
+
+The project currently supports:
+- Real-time DSP processing
+- ECG visualization
+- QRS detection
+- Heart rate estimation
+- Arrhythmia classification
+- HIL-ready serial communication
+
+The software platform is now fully prepared for integration
+with the AD8232 ECG acquisition hardware module.
+"""
+
+doc.add_paragraph(conclusion)
+
+# ---------------------------------------------------------
+# SAVE DOCUMENT
+# ---------------------------------------------------------
+
+filename = "ECG_HIL_Project_Report.docx"
+
+doc.save(filename)
+
+print(f"\nReport generated successfully: {filename}")
+print("Open the DOCX file to view the complete report.")

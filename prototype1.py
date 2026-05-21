@@ -1,49 +1,53 @@
+# Step 0: Install once (run in terminal if not installed)
+# pip install wfdb numpy matplotlib
+
+import wfdb 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, filtfilt, find_peaks
+import os
 
-# ---------------- LOAD DATA ----------------
-ecg = np.loadtxt('ecg.txt')
-print("Loaded samples:", len(ecg))
+# -----------------------------
+# Step 1: Load ECG dataset
+# -----------------------------
+print("Downloading ECG data...")
+record = wfdb.rdrecord('100', pn_dir='mitdb')
 
-# ---------------- FILTER ----------------
-fs = 360  # sampling frequency
+# -----------------------------
+# Step 2: Extract signal
+# -----------------------------
+ecg = record.p_signal[:, 0]   # first channel
 
-lowcut = 0.5
-highcut = 40
+print("ECG samples loaded:", len(ecg))
 
-b, a = butter(2, [lowcut/(fs/2), highcut/(fs/2)], btype='band')
-filtered_ecg = filtfilt(b, a, ecg)
-filtered_ecg = (filtered_ecg - np.mean(filtered_ecg)) / np.std(filtered_ecg)
+# -----------------------------
+# Step 3: Save to ecg.txt
+# -----------------------------
+file_name = "ecg.txt"
+np.savetxt(file_name, ecg)
 
-# ---------------- PEAK DETECTION ----------------
-peaks, _ = find_peaks(filtered_ecg, distance=200, height=1.0)
+print("ECG saved to file!")
 
-# ---------------- PLOT ----------------
-# Zoom region
-zoom_start = 0
-zoom_end = 2000
+# -----------------------------
+# Step 4: Verify file
+# -----------------------------
+print("File exists:", os.path.exists(file_name))
+print("File size (bytes):", os.path.getsize(file_name))
 
-plt.figure(figsize=(10,5))
+# -----------------------------
+# Step 5: Load again (test)
+# -----------------------------
+ecg_loaded = np.loadtxt(file_name)
 
-plt.plot(filtered_ecg[zoom_start:zoom_end])
+print("Loaded back samples:", len(ecg_loaded))
 
-# Only plot peaks in this region
-mask = (peaks >= zoom_start) & (peaks < zoom_end)
-
-plt.plot(peaks[mask], filtered_ecg[peaks[mask]], "ro")
-
-plt.title("QRS Detection (Zoomed)")
+# -----------------------------
+# Step 6: Plot ECG
+# -----------------------------
+plt.figure()
+plt.plot(ecg_loaded[:2000])   # show first 2000 samples
+plt.title("ECG Signal (First 2000 Samples)")
 plt.xlabel("Samples")
 plt.ylabel("Amplitude")
+plt.grid()
 
 plt.show()
-
-# ---------------- HEART RATE ----------------
-rr_intervals = np.diff(peaks) / 360
-heart_rate = 60 / np.mean(rr_intervals)
-
-print("Heart Rate:", round(heart_rate,2), "BPM")
-
-print("Min:", np.min(filtered_ecg))
-print("Max:", np.max(filtered_ecg))

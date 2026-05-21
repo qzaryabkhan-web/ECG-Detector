@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feminism Essay Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <p class="eyebrow">Interactive Writing Tool</p>
+      <h1>Generate Essays on Feminism</h1>
+      <p class="hero-copy">
+        Create structured essays with adjustable length, tone, and focus. The site builds an original essay draft in the browser and lets you copy it instantly.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel controls-panel">
+        <h2>Essay Settings</h2>
+        <form id="essay-form" class="controls">
+          <label class="field">
+            <span>Essay focus</span>
+            <input
+              id="topic"
+              name="topic"
+              type="text"
+              value="The importance of feminism in modern society"
+              placeholder="Enter a feminism-related topic"
+            >
+          </label>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>Length</span>
+              <select id="length" name="length">
+                <option value="short">Short</option>
+                <option value="medium" selected>Medium</option>
+                <option value="long">Long</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Tone</span>
+              <select id="tone" name="tone">
+                <option value="formal" selected>Formal</option>
+                <option value="academic">Academic</option>
+                <option value="simple">Simple</option>
+                <option value="persuasive">Persuasive</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Main angle</span>
+            <select id="angle" name="angle">
+              <option value="equality" selected>Equality and rights</option>
+              <option value="history">Historical development</option>
+              <option value="education">Education and opportunity</option>
+              <option value="workplace">Workplace and leadership</option>
+              <option value="misconceptions">Common misconceptions</option>
+            </select>
+          </label>
+
+          <label class="field checkbox-field">
+            <input id="include-counterargument" name="include-counterargument" type="checkbox" checked>
+            <span>Include a counterargument paragraph</span>
+          </label>
+
+          <div class="actions">
+            <button type="submit" class="primary-btn">Generate Essay</button>
+            <button type="button" id="copy-btn" class="secondary-btn">Copy Essay</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="output-header">
+          <div>
+            <p class="eyebrow">Generated Draft</p>
+            <h2>Your Essay</h2>
+          </div>
+          <p id="status" class="status">Ready</p>
+        </div>
+        <article id="essay-output" class="essay-output" aria-live="polite">
+          Choose your settings and click "Generate Essay" to create a draft.
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
